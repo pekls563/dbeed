@@ -43,7 +43,7 @@ func (f Goo) Del(args Empty, reply *Replys) error {
 
 func startRegistry(wg *sync.WaitGroup) {
 	l, _ := net.Listen("tcp", ":9999")
-	registry.DefaultGeeRegister.HandleHTTP("/krpc_/registry")
+	registry.DefaultKRegister.HandleHTTP("/krpc_/registry")
 	wg.Done()
 	//第二个参数传nil表示使用DefaultServeMux
 	_ = http.Serve(l, nil)
