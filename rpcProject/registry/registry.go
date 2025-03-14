@@ -36,7 +36,7 @@ func New(timeout time.Duration) *kRegistry {
 	}
 }
 
-var DefaultGeeRegister = New(defaultTimeout)
+var DefaultKRegister = New(defaultTimeout)
 
 //添加服务实例，如果服务已经存在，则更新 start。start为服务注册时的时间
 func (r *kRegistry) putServer(addr string, name string) {
