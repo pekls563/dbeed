@@ -22,7 +22,7 @@ import (
 	"time"
 )
 
-var registryAddr = "http://localhost:9091/_geerpc_/registry"
+var registryAddr = "http://localhost:9091/krpc_/registry"
 
 var AccountClient *dclient.XClient
 
