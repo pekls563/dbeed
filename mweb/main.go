@@ -45,16 +45,6 @@ func CrossDomain(c *miniweb.Context) {
 
 func Token(c *miniweb.Context) {
 
-	/*token := c.Request.Header.Get("Authorization")
-	if token != "3033169429" {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"msg": "认证失败，需要登录",
-		})
-		c.Abort()
-	}
-
-	c.Next()*/
-
 	s := c.Req.URL.String()
 
 	if s == "/health" || s == "/user/register" || s == "/user/login" || s == "/test" || s == "/getImage" || strings.HasPrefix(s, "/getImageName") {
@@ -70,8 +60,10 @@ func Token(c *miniweb.Context) {
 		c.Abort()
 		return
 	}
+	fmt.Println("用户token为", token)
 	j := jwt_op.NewJWT()
 	parseToken, err := j.ParseToken(token)
+
 	if err != nil {
 		if err.Error() == jwt_op.TokenExpired {
 			c.JSON(http.StatusUnauthorized, miniweb.H{
@@ -195,16 +187,14 @@ func main() {
 
 	//获取图片验证码.png文件
 	r.GET("/getImageName", func(c *miniweb.Context) {
-		//var image req.Image
-		//imageName := c.DefaultQuery("imageName", "")
+
 		imageName := c.Query("imageName")
-		//c.ShouldBindJSON(&image)
 
 		filePath := fmt.Sprintf("mweb\\image\\%s", imageName)
 		file, _ := ioutil.ReadFile(filePath) //把要显示的图片读取到变量中
-		//c.Writer.WriteString(string(file))   //关键一步，写给前端
+
 		c.SetHeader("Content-Type", "image/png")
-		//c.String(200, string(file))
+
 		c.Data(200, file)
 	})
 

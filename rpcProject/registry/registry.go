@@ -102,9 +102,11 @@ func (r *kRegistry) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	case "POST":
 		// keep it simple, server is in req.Header
 		//获取发送心跳检查的服务的地址
+
 		addr := req.Header.Get("Mini-Serve-Addr")
 		name := req.Header.Get("Mini-Serve-Name")
 		if addr == "" || name == "" {
+			fmt.Println("POST请求非法")
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -116,7 +118,6 @@ func (r *kRegistry) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// HandleHTTP registers an HTTP handler for GeeRegistry messages on registryPath
 func (r *kRegistry) HandleHTTP(registryPath string) {
 	http.Handle(registryPath, r) //对应路径调用r.ServeHTTP()
 	log.Println("rpc registry path:", registryPath)

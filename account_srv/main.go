@@ -31,7 +31,7 @@ func startServer(registryAddr string, name string) {
 func main() {
 
 	ch := make(chan int, 0)
-	registryAddr := "http://localhost:9091/_geerpc_/registry"
+	registryAddr := "http://localhost:9091/krpc_/registry"
 	serveName := "account_srv"
 	startServer(registryAddr, serveName)
 	<-ch
